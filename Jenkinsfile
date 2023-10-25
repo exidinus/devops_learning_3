@@ -37,6 +37,19 @@ pipeline {
                 }
             }
         }
+        stage('Deploy Docker Container') {
+            steps {
+                script {
+                    def sshKey = credentials('SSH_PRIVATE_KEY_TO_ENVIRONMENT')
+                    sh 'which ssh-agent || ( apt-get update -y && apt-get install -y openssh-client )'
+                    sh 'eval $(ssh-agent -s)'
+                    sh "echo '${sshKey.secret}' | ssh-add -"
+
+                    sh 'mkdir -p ~/.ssh'
+                    sh '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
+                }
+            }
+        }
     }
 }
 
