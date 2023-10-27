@@ -6,8 +6,7 @@
  <?php
         $ip_server = $_SERVER['SERVER_ADDR'];
   
-        echo "<br>Hello Worlld" 
-  ?>
+        echo "<br>Hello Worlld"
               <p>
   
                <b>
